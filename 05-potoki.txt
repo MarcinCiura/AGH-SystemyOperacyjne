@@ -1,0 +1,35 @@
+potoki (łącza) nienazwane i potoki (łącza) nazwane (kolejki FIFO)
+
+potok:
+- jednokierunkowy kanał komunikacji między procesami
+- ma koniec do zapisu i koniec do odczytu
+- dane zapisane na jednym końcu można odczytywać na drugim końcu
+- dane są odczytywane w kolejności ich zapisywania
+- raz odczytanych danych nie można ponownie odczytać
+- nie działa funkcja lseek
+- jedyna różnica między potokami nienazwanymi i nazwanymi:
+  - sposób tworzenia i otwierania
+
+potok nienazwany
+- tylko do komunikacji między spokrewnionymi procesami
+
+#include <unistd.h>
+
+int pipe(int pipefd[2]);  // Utwórz łącze nienazwane
+int dup(int oldfd);  // Powiel deskryptor pliku
+int dup2(int oldfd, int newfd);  // Powiel deskryptor pliku
+
+potok nazwany
+- może być używany przez niespokrewnione procesy
+- przed otwarciem - podobny do pliku:
+  - ma nazwę
+  - może być otwarty przez każdy proces z odpowiednimi uprawnieniami
+
+#include <sys/types.h>
+#include <sys/stat.h>
+
+int mknod(const char *pathname, mode_t mode, dev_t dev);  // Utwórz plik
+int mkfifo(const char *pathname, mode_t mode);  // Utwórz potok nazwany
+man 2 mknod, man 3 mkfifo
+
+int mkfifo("tmp794693", O_RDWR);

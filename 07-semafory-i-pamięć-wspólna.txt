@@ -1,0 +1,64 @@
+Semafory
+========
+- zasoby wspólne
+  - zasoby, z których może jednocześnie korzystać wiele procesów lub wątków
+  - np. zmienne globalne (dla wątków), pliki, pamięć wspólna, gniazda sieciowe
+- sekcja krytyczna
+  - fragment kodu, który może być wykonywany tylko przez jeden proces lub wątek naraz
+- semafor
+  - mechanizm synchronizacji procesów lub wątków
+  - nieujemny licznik dostępnych instancji zasobu
+  - dwie operacje:
+    - zajmij semafor (wait, lock, acquire, P):
+      - niepodzielnie: while (licznik <= 0) {} --licznik;
+    - zwolnij semafor (signal, unlock, release, V):
+      - niepodzielnie: ++licznik
+- mutex
+  - mechanizm synchronizacji dostępu *wątków* do zasobów współdzielonych
+  - podobny do semafora, *ale*:
+    - chroni dostęp tylko do jednej instancji zasobu (licznik == 0 lub 1)
+    - może być zwalniany tylko przez ten wątek, przez który został zajęty
+
+funkcje Systemu V:
+#include <sys/sem.h>
+semget - pobierz identyfikator zestawu semaforów
+semop - działania na zestawie semaforów
+semctl - sterowanie
+- dodać do wywołania gcc flagę -pthread
+- więcej: man 7 sysvipc
+
+funkcje standardu POSIX:
+#include <semaphore.h>
+- semafory nazwane ("/nazwa")
+sem_open - utwórz lub otwórz
+sem_wait - zajmij
+sem_post - zwolnij
+sem_trywait - natychmiast zajmij; jeśli się nie da – zwróć błąd
+sem_getvalue - pobierz wartość licznika
+sem_close - zamknij
+- gcc -pthread
+- więcej, w tym semafory nienazwane: man 7 sem_overview
+
+Pamięć wspólna
+==============
+- obszar (segment) pamięci używany wspólnie przez wiele procesów
+- służy do wydajnej wymiany danych między procesami
+
+funkcje Systemu V:
+#include <sys/shm.h>
+shmget - pobierz identyfikator segmentu pamięci wspólnej
+shmat - dołącz segment
+shmdt - odłącz segment
+shmctl - sterowanie
+- gcc -pthread
+- więcej: man 7 sysvipc
+
+funkcje standardu POSIX:
+#include <sys/mman.h>
+shm_open - utwórz lub otwórz segment pamięci; zwraca deskryptor pliku
+ftruncate - ustaw długość pliku
+mmap - mapuj w pamięci zawartość pliku (działa też na zwykłych plikach)
+munmap - przestań mapować plik
+shm_unlink - usuń segment pamięci
+- gcc -pthread
+- więcej: man 7 shm_overview

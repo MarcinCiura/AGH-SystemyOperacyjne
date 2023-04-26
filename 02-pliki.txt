@@ -1,0 +1,91 @@
+Plan:
+- wprowadzenie
+- powtórzenie wiadomości o plikach
+- krótka przerwa
+- omówienie zadań na następny tydzień
+- omówienie zadań z zeszłego tygodnia
+
+Powtórzenie wiadomości o plikach:
+- i-węzeł
+  - typ pliku
+    - plik zwykły
+    - katalog
+    - plik specjalny
+- funkcje systemowe
+- funkcje ANSI C
+- funkcje systemowe do obsługi katalogów
+- pozostałe funkcje systemowe
+
+i-węzeł — struktura z danymi o pliku:
+- typ pliku
+- liczba dowiązań
+- identyfikator
+  - właściciela
+  - grupy
+- prawa dostępu
+  - właściciela
+  - grupy
+  - pozostałych użytkowników
+- czas
+  - ostatniego dostępu
+  - ostatniej modyfikacji
+  - ostatniej zmiany stanu
+- wielkość pliku
+albo: wskaźnik do bloków dysku z treścią pliku
+albo: numer urządzenia
+
+typ pliku:
+- plik zwykły
+- katalog
+- plik specjalny
+
+plik zwykły – i-numer, czyli indeks tablicy i-węzłów
+katalog - tablica par (nazwa pliku, i-numer)
+plik specjalny:
+- urządzenie
+- kolejka FIFO
+- inne
+
+funkcje systemowe:
+
+int open(char *pathname, int flags, mode_t mode)
+int creat(char *pathname, mode_t mode)
+int read(int fd, void *buf, size_t count)
+int write(int fd, void *buf, size_t count)
+long lseek(int fd, long offset, int whence)
+int close(int fd)
+
+funkcje ANSI C (stdio.h):
+
+FILE *fopen(char *pathname, char *mode)
+size_t *fread(void *ptr, size_t size, size_t count, FILE *file)
+size_t *fwrite(void *ptr, size_t size, size_t count, FILE *file)
+int fseek(FILE *file, long offset, int whence)
+int fclose(FILE *file)
+
+funkcje systemowe do czytania katalogów:
+
+DIR *opendir(char *dirname)
+int closedir(DIR *dirp)
+struct dirent *readdir(DIR *dirp)
+void rewinddir(DIR *dirp)
+void seekdir(DIR *dirp, long loc)
+
+pozostałe funkcje systemowe:
+
+int stat(const char *path, struct stat *buf)
+int fstat(int fd, struct stat *buf)
+int lstat(const char *path, struct stat *buf)
+
+int mkdir(const char *path, mode_t mode)
+int rmdir(const char *path)
+int chdir(const char *path)
+char *getcwd(char *buf, ssize_t size)
+
+int chmod(const char *path, mode_t new)
+int chown(const char *path, uid_t id_wlaściciela, gid_t id_grupy)
+int link(const char *path, const char *nowa)
+int ftw(const char *dirpath,
+        int (*fn) (const char *fpath, const struct stat *sb,
+                   int typeflag),
+        int nopenfd)

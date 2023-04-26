@@ -1,0 +1,129 @@
+program proces
+
+program - zestaw instrukcji i danych w pliku, który jest oznaczony
+w swoim i-węźle jako wykonywalny
+
+proces - środowisko, w którym program jest wykonywany
+- segment instrukcji (tylko do odczytu) - inicjowany na podstawie programu
+- segment danych użytkownika            - inicjowany na podstawie programu
+- segment danych systemowych
+
+dane systemowe
+- identyfikator procesu
+- identyfikator procesu macierzystego
+- identyfikator grupy procesów
+- katalog bieżący
+- deskryptory plików
+- priorytet
+- czas rzeczywisty
+- czas użytkowy procesora
+- czas systemowy procesora
+- ...
+
+Procesy mają dostęp do danych systemowych tylko przez funkcje systemowe
+Na podstawie jednego programu można zainicjować wiele współbieżnych procesów
+Procesy mogą tworzyć procesy potomne
+Procesy potomne dziedziczą większość danych systemowych procesu macierzystego
+
+Proces-sierota to proces, który się wykonuje (jest żywy), ale jego proces
+macierzysty zakończył działanie (jest martwy)
+Proces-zombie to proces, który zakończył działanie (jest martwy), ale informacje
+o nim nie zostały usunięte z tabeli procesów w jądrze systemu operacyjnego
+
+Każdy proces ma jednoznaczny identyfikator - nieujemną liczbę całkowitą
+Proces 0 to proces jądra
+Proces 1 to proces inicjacji - przodek wszystkich procesów
+Procesy-sieroty są adoptowane przez proces 1
+
+Pokrewne procesy można organizować w grupę procesów
+Jeden z członków grupy procesów to jej przywódca
+Identyfikator grupy procesów to identyfikator jej przywódcy
+Każdy proces może założyć własną grupę procesów i zostać jej przywódcą,
+przypisując swój identyfikator do identyfikatora grupy procesów
+Procesy potomne dziedziczą identyfikator grupy procesów
+fork exit exec* wait
+
+#include <unistd.h>
+int getpid();  – zwraca identyfikator procesu
+int getppid(); – zwraca identyfikator procesu macierzystego
+int getpgrp(); – zwraca identyfikator grupy procesów
+int setpgrp(); – przypisuje identyfikator procesu do identyfikatora grupy
+                 usuwa proces z jego grupy procesów
+
+Jedynym sposobem utworzenia nowego procesu jest wywołanie funkcji systemowej fork
+
+#include <unistd.h>
+int fork();
+
+Funkcja systemowa fork tworzy kopię tego procesu, który ją wywołał
+Przekazuje:
+- procesowi macierzystemu – identyfikator procesu potomnego lub liczbę -1,
+                            jeśli nie udało się stworzyć procesu potomnego
+- procesowi potomnemu – liczbę 0
+
+#include <stdlib.h>
+void exit(int status);
+
+Funkcja exit kończy działanie procesu i przekazuje do procesu macierzystego
+najmniej znaczący bajt liczby status jako swój kod stanu
+Funkcja exit nie powraca do miejsca programu, w którym ją wywołano, czyli
+dalsza część programu się nie wykonuje
+
+#include <stdio.h>
+#include <unistd.h>
+int main() {
+  int childpid = fork();
+  switch (childpid) {
+  case -1:
+    perror("nie da się stworzyć procesu potomnego");
+    exit(EXIT_FAILURE);  // jak return 1; w funkcji main
+  case 0:
+    printf("Jestem proces potomny %d, dziecko procesu %d\n", getpid(), getppid());
+    exit(EXIT_SUCCESS);  // jak return 0; w funkcji main
+  default:
+    printf("Jestem proces macierzysty %d, rodzic procesu %d\n", getpid(), childpid);
+    exit(EXIT_SUCCESS);  // jak return 0; w funkcji main
+  }
+}
+
+Jedynym sposobem wykonania jakiegoś programu jest wywołanie funkcji systemowej exec
+Funkcja exec zmienia program wykonywany przez bieżący proces
+
+#include <unistd.h>
+int execl(const char *pathname, const char *arg,... /* NULL */);
+int execle(const char *pathname, const char *arg,... /* NULL, char *const envp[] */);
+int execlp(const char *file, const char *arg,... /* NULL */);
+int execv(const char *pathname, char *const argv[]);
+int execve(const char *pathname, char *const argv[], char *const envp[]);
+int execvp(const char *file, char *const argv[]);
+
+l/v - lista/wektor
+p - wyszukaj plik zawierający program na podstawie zmiennej środowiskowej PATH
+e - przekaż środowisko z argumentu funkcji, a nie zmiennej char **environn
+
+Jeśli wywołanie funkcji exec się powiodło, to zaczyna działać nowy program
+i funkcja exec nie powraca do miejsca programu, w którym ją wywołano, czyli
+dalsza część programu się nie wykonuje
+Jeśli wystąpił błąd, to funkcja exec przekazuje wartość -1
+
+#include <stdio.h>
+#include <unistd.h>
+int main() {
+  execl("/bin/ls", "ls", "-l", NULL);
+  perror("nie da się wykonać programu /bin/ls");
+  return 1;
+}
+
+#include <sys/wait.h>
+int wait(int *status);
+int waitpid(int pid, int *status, int options);
+
+Jeśli istnieją procesy potomne, to funkcja systemowa wait czeka, aż jeden z nich
+skończy się wykonywać
+Funkcja waitpid czeka, aż proces o danym identyfikatorze skończy się wykonywać
+Jeśli wywołanie funkcji wait/waitpid się powiodło, to znaczy, że informacje
+o procesie potomnym zostały usunięte z tabeli procesów w jądrze systemu –
+wtedy funkcja przekazuje identyfikator procesu potomnego, który się zakończył
+Jeśli wskaźnik status to nie NULL, to funkcja wait/waitpid zapisuje kod stanu
+procesu potomnego w liczbie całkowitej, na którą wskazuje wskaźnik status
+Jeśli wystąpił błąd, to funkcja wait/waitpid przekazuje wartość -1

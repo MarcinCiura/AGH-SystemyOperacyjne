@@ -1,0 +1,30 @@
+kolejki komunikatów:
+- identyfikator kolejki jest podobny do deskryptora pliku
+- każdy proces, który zna identyfikator kolejki, może korzystać z tej
+  kolejki
+
+funkcje Systemu V:
+
+#include <sys/msg.h>
+int msgget(key_t key, int msgflg); - utwórz lub znajdź kolejkę
+int msgsnd(int msqid, const void *msgp, size_t msgsz, int msgflg);
+    - prześlij komunikat
+ssize_t msgrcv(int msqid, void *msgp, size_t msgsz, long msgtyp, int msgflg);
+    - odbierz komunikat
+int msgctl(int msqid, int cmd, struct msqid_ds *buf); - steruj kolejką
+
+funkcje POSIX:
+
+#include <mqueue.h>
+mqd_t mq_open(const char *name, int oflag, ...); - otwórz kolejkę
+int mq_close(mqd_t mqdes); - zamknij kolekę
+int mq_unlink(const char *name); - usuń kolejkę
+int mq_getattr(mqd_t mqdes, struct mq_attr *attr); - pobierz parametry kolejki
+int mq_setattr(mqd_t mqdes, const struct mq_attr *attr, struct mq_attr *oattr);
+    - ustaw parametry kolejki
+int mq_send(mqd_t mqdes, const char* ptr, size_t len, unsigned int prio);
+    - wyślij komunikat
+ssize_t mq_receive(mqd_t mqdes, char *ptr, size_t len, unsigned int *priop);
+    - odbierz komunikat
+int mq_notify(mqd_t mqdes, const struct sigevent *notification);
+    - powiadom proces o komunikacie
