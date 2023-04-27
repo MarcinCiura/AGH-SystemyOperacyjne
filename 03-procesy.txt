@@ -1,5 +1,5 @@
-program proces
-
+Program a proces
+================
 program - zestaw instrukcji i danych w pliku, który jest oznaczony
 w swoim i-węźle jako wykonywalny
 

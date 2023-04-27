@@ -1,0 +1,66 @@
+Program a proces - powtórka z laboratorium 3
+============================================
+program - zestaw instrukcji i danych w pliku, który jest oznaczony
+w swoim i-węźle jako wykonywalny
+
+proces - środowisko, w którym program jest wykonywany
+- segment instrukcji (tylko do odczytu) - inicjowany na podstawie programu
+- segment danych użytkownika            - inicjowany na podstawie programu
+- segment danych systemowych
+
+segment danych systemowych:
+- identyfikator procesu
+- identyfikator procesu macierzystego
+- identyfikator grupy procesów
+- katalog bieżący
+- deskryptory plików
+- priorytet
+- czas rzeczywisty
+- czas użytkowy procesora
+- czas systemowy procesora
+
+segment danych użytkownika:
+- dane zainicjowane – zmienne globalne i statyczne
+- dane niezainicjowane – zmienne globalne i statyczne inicjowane zerami
+- sterta – zmienne przydzielane dynamicznie (malloc/new)
+- stos – zmienne lokalne funkcji
+- NOWOŚĆ – dane własne wątków:
+  - podobne do zmiennych globalnych
+  - każdy wątek ma osobną kopię
+
+Proces a wątek
+==============
+wątki pozwalają procesowi robić wiele rzeczy jednocześnie
+wątki działają wewnątrz procesu
+
+jeśli wątków w systemie jest więcej niż rdzeni w procesorze,
+rdzenie często zmieniają wykonywane przez siebie wątki,
+dzięki czemu użytkownikowi komputera wydaje się,
+że wiele wątków działa jednocześnie
+
+wszystkie wątki wewnątrz jednego procesu mają wspólne:
+- segment instrukcji
+- segment danych użytkownika
+- segment danych systemowych
+każdy wątek ma w segmencie danych użytkownika własne:
+- stos (zmienne lokalne funkcji)
+- dane własne (thread-local data):
+  - identyfikator wątku
+  - priorytet wątku
+  - zmienną errno
+  - maskę sygnałów itp.
+funkcje języka C:
+- bezpieczne wobec wątków (thread-safe), np. printf, strtok_r, rand_r
+- niebezpieczne wobec wątków (thread-unsafe), np. strtok, rand
+
+Biblioteka wątków standardu POSIX (pthreads)
+============================================
+man 7 pthreads
+gcc -pthread
+
+#include <pthreads.h>
+pthread_create – utwórz nowy wątek
+pthread_exit – zakończ wątek
+pthread_join – czekaj na zakońcenie wątku
+pthread_cancel – wyślij do wątku żądanie zakończenia
+pthread_kill – wyślij do wątku sygnał
