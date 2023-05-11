@@ -1,0 +1,83 @@
+Mutex (MUTual EXclusion)
+========================
+- mechanizm synchronizacji dostępu wątków do zasobów współdzielonych
+- podobny do semafora, ale:
+  - chroni dostęp tylko do jednej instancji zasobu (licznik == 0 lub 1)
+  - może być zwalniany tylko przez ten wątek, przez który został zajęty
+
+#include <pthread.h>
+pthread_mutex_init    - inicjalizuj
+pthread_mutex_lock    - zajmij
+pthread_mutex_trylock - natychmiast zajmij; jeśli się nie da – zwróć błąd
+pthread_mutex_unlock  - zwolnij
+pthread_mutex_destroy - usuń
+
+pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
+zamiast
+pthread_mutex_t mutex;
+pthread_mutex_init (&mutex, NULL);
+- kompilować przez gcc -pthread
+
+Semafory nienazwane
+===================
+#include <semaphore.h>
+sem_init - inicjalizuj
+sem_wait - zajmij
+sem_post - zwolnij
+sem_trywait - natychmiast zajmij; jeśli się nie da – zwróć błąd
+sem_getvalue - pobierz wartość licznika
+sem_destroy - usuń
+- gcc -pthread
+- więcej: man 7 sem_overview
+
+Warunki sprawdzające (conditional variables)
+============================================
+- mechanizm synchronizacji wątków
+- usypia wątek do czasu, gdy warunek będzie spełniony
+- działa wydajniej niż ciągłe sprawdzanie warunku w pętli (busy loop)
+
+#include <pthread.h>
+pthread_cond_init      - inicjalizuj
+int pthread_cond_wait(&cond, &mutex)
+  - czekaj na warunek `cond` zabezpieczony przez `mutex`
+pthread_cond_broadcast - odblokuj wszystkie wątki czekające na warunek
+pthread_cond_destroy   - usuń
+- gcc -pthread
+
+pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
+pthread_cond_t cond = PTHREAD_COND_INITIALIZER;
+
+// Wątek 1.
+pthread_mutex_lock(&mutex);
+while (!<<<warunek odblokowania>>>) {
+    pthread_cond_wait(&cond, &mutex);
+}
+<<<rób różne rzeczy>>>
+pthread_mutex_unlock(&mutex);
+
+// Wątek 2.
+pthread_mutex_lock(&mutex);
+if (<<<warunek odblokowania>>>)
+    pthread_cond_broadcast(&cond);
+pthread_mutex_unlock(&mutex);
+
+Wątek 1. używa pętli while zamiast instrukcji warunkowej.
+W przeciwnym wypadku może zajść błąd, jeśli więcej wątków czeka na `cond`.
+
+Wątek 1.                    Wątek 2.                    Wątek 3.
+----------------------------------------------------------------
+(if) !warunek == true
+(cond_wait) zwalnia mutex
+(cond_wait) czeka na cond
+                            (mutex_lock) zajmuje mutex
+                            (if) warunek == true
+                            (cond_broadcast) odblokowuje wątek 1.
+                            (mutex_unlock) zwalnia mutex
+                                                        (mutex_lock) zajmuje mutex
+                                                        (if) !warunek == false
+                                                        robi różne rzeczy
+                                                        warunek = false
+                                                        (mutex_unlock) zwalnia mutex
+(cond_wait) budzi wątek 1.
+(cond_wait) zajmuje mutex
+wątek jest aktywny, chociaż warunek == false
