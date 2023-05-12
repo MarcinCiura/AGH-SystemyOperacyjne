@@ -4,6 +4,8 @@ Mutex (MUTual EXclusion)
 - podobny do semafora, ale:
   - chroni dostęp tylko do jednej instancji zasobu (licznik == 0 lub 1)
   - może być zwalniany tylko przez ten wątek, przez który został zajęty
+- gdy wątek próbuje zająć zajęty mutex, zostaje uśpiony
+- pthread_mutex_lock ... pthread_mutex_unlock obejmują sekcje krytyczne
 
 #include <pthread.h>
 pthread_mutex_init    - inicjalizuj
@@ -18,7 +20,7 @@ pthread_mutex_t mutex;
 pthread_mutex_init (&mutex, NULL);
 - kompilować przez gcc -pthread
 
-Semafory nienazwane
+Semafor nienazwany
 ===================
 #include <semaphore.h>
 sem_init - inicjalizuj
@@ -30,11 +32,11 @@ sem_destroy - usuń
 - gcc -pthread
 - więcej: man 7 sem_overview
 
-Warunki sprawdzające (conditional variables)
+Warunek sprawdzający (conditional variable)
 ============================================
-- mechanizm synchronizacji wątków
 - usypia wątek do czasu, gdy warunek będzie spełniony
 - działa wydajniej niż ciągłe sprawdzanie warunku w pętli (busy loop)
+- zwykle używany, gdy pewne wątki są "producentami", a inne — "konsumentami"
 
 #include <pthread.h>
 pthread_cond_init      - inicjalizuj
@@ -49,7 +51,7 @@ pthread_cond_t cond = PTHREAD_COND_INITIALIZER;
 
 // Wątek 1.
 pthread_mutex_lock(&mutex);
-while (!<<<warunek odblokowania>>>) {
+while (!<<<warunek odblokowania wątku 1.>>>) {
     pthread_cond_wait(&cond, &mutex);
 }
 <<<rób różne rzeczy>>>
@@ -57,12 +59,15 @@ pthread_mutex_unlock(&mutex);
 
 // Wątek 2.
 pthread_mutex_lock(&mutex);
-if (<<<warunek odblokowania>>>)
+if (<<<warunek odblokowania wątku 1.>>>)
     pthread_cond_broadcast(&cond);
 pthread_mutex_unlock(&mutex);
 
-Wątek 1. używa pętli while zamiast instrukcji warunkowej.
-W przeciwnym wypadku może zajść błąd, jeśli więcej wątków czeka na `cond`.
+Wątek 1. musi używać pętli while zamiast instrukcji warunkowej lub —
+co gorsza — "nagiego" wywołania funkcji pthread_cond_wait.
+W przeciwnym wypadku, jeśli więcej wątków czeka na warunek `cond`
+i modyfikuje warunek odblokowania wątku 1, wątek 1. mógłby robić różne
+rzeczy mimo tego, że warunek jego odblokowania nie byłby spełniony.
 
 Wątek 1.                    Wątek 2.                    Wątek 3.
 ----------------------------------------------------------------
