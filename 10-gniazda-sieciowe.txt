@@ -1,0 +1,55 @@
+Gniazda sieciowe - równoczesna komunikacja (full duplex)
+między procesami, również działającymi na różnych maszynach.
+Trzeba wybrać: dziedzinę, tryb, protokół, klient czy serwer.
+
+dziedzina - pierwszy argument funkcji socket
+- AF_UNIX - komunikacja między procesami na jednej maszynie
+- AF_INET - komunikacja przez IPv4
+- AF_INET6 - komunikacja przez IPv6
+
+tryb gniazda - drugi argument funkcji socket
+- SOCK_STREAM - niezawodna, uporządkowana komunikacja; wymaga połączenia
+- SOCK_DGRAM - zawodna, nieuporządkowana komunikacja; bez połączenia
+
+protokół - trzeci argument funkcji socket
+- 0 to protokół domyślny:
+- IPPROTO_TCP (Transmission Control Protocol) dla SOCK_STREAM
+- IPPROTO_UDP (User Datagram Protocol) dla SOCK_DGRAM
+
+#include <sys/socket.h>
+socket - stwórz gniazdo sieciowe
+bind - przypisz nazwę do gniazda - zawsze wymagane oprócz klientów TCP
+listen - zgłoś, że chcesz przyjmować połączenia (TCP)
+accept - przyjmij przychodzące połączenie (TCP)
+connect - inicjuj połączenie (TCP; w UDP - zapamiętaj adres docelowy datagramów)
+read - odczytaj (TCP)
+write - wyślij (TCP)
+recvfrom - odczytaj (UDP)
+sendto - wyślij (UDP)
+close - zamknij gniazdo
+więcej: man 7 unix
+
+Schematy działania serwera i klienta
+
+        Protokół połączeniowy (TCP)
+serwer                          klient
+======================================
+socket
+bind
+listen
+accept (blokuje, aż klient się połączy)
+                                socket
+             <----------------  connect
+read/recv  <------------------  write/send
+write/send ------------------>  read/recv
+
+      Protokół bezpołączeniowy (UDP)
+serwer                          klient
+======================================
+socket
+bind
+recvfrom (blokuje, aż klient prześle dane)
+                                socket
+             <----------------  bind
+        <---------------------  sendto
+sendto  --------------------->  recvfrom
