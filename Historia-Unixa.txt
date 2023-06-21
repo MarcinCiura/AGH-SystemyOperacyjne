@@ -1,0 +1,253 @@
+1. Witam państwa na wykładzie o historii Unixa. Wykład zajmie około
+pół godziny.
+
+2. Na dzisiejszym wykładzie poznają państwo 8 osób, w tym 4 brodaczy
+i 4 mężczyzn bez brody, 5 miejsc, w tym 4 miejsca w USA i 1 miejsce
+w Europie i dowiedzą się, co znaczy 10 skrótowców, w tym 1 skrótowiec
+rekurencyjny.
+
+3. Historia Unixa zaczęła się w Murray Hill w stanie New Jersey,
+30 km na zachód od Nowego Jorku i 70 km od Uniwersytetu Princeton.
+
+4. W Murray Hill mieścił się ośrodek badawczy firmy Bell Telephone,
+zwany Bell Labs. Dzisiaj Bell Labs należy do firmy Nokia.
+
+5. W 1965 roku w 3 instytucjach: w Bell Labs, w General Electric
+Company i w Massachussets Institute of Technology, czyli w MIT,
+zaczęto pracować nad nowym systemem operacyjnym, który nazwano
+Multics. Dzięki Multicsowi wielu użytkowników miało równocześnie
+korzystać z komputera i wspólnie korzystać z danych na tym komputerze.
+Ale Multics nie spełniał tych założeń, więc firma Bell Labs przestała
+nad nim pracować.
+
+6. Na tym zdjęciu widać dwóch brodatych pracowników Bell Labs: po
+lewej Kena Thompsona i po prawej Dennisa Ritchiego. Ken Thompson
+opracował oprócz Unixa między innymi: algorytm zamiany wyrażeń
+regularnych na niedeterministyczne automaty skończone, komputer
+szachowy Belle, który w 1980 roku zdobył mistrzostwo świata wśród
+komputerów, program, który bezbłędnie rozgrywa końcówki szachowe,
+kodowanie tekstu UTF-8, system operacyjny Plan 9 i język programowania
+Go. Teraz pracuje w Google. Jego hobby to pilotowanie samolotów.
+Wybrał się nawet do Moskwy tylko po to, żeby pilotować Miga-29. Dennis
+Ritchie pomagał Kenowi tworzyć i rozprowadzać Unixa. Zmarł w 2011
+roku. Ken i Dennis są znani pod swoimi nazwami użytkownika: ken i dmr.
+
+7. W 1969 roku Ken, Dennis i Rudd Canaday naszkicowali na papierze
+projekt hierarchicznego systemu plików. Na slajdzie widać funkcje
+systemowe obsługujące system plików.
+
+8. W tym samym roku Ken napisał grę komputerową Space Travel. W grze
+Space Travel gracz podróżował statkiem kosmicznym przez Układ
+Słoneczny i lądował na planetach i księżycach. Gra Space Travel
+działała na komputerze General Electric 645. Okazało się, że jedna
+sesja gry na komputerze General Electric 645 kosztowała od 50 do 75
+dolarów. Ken dowiedział się, że w innym dziale firmy jest mało używany
+minikomputer PDP-7, na którym obliczenia były tańsze. Kiedy żona Kena
+wyjechała z ich rocznym synkiem do rodziny w Kalifornii, Ken miał
+czas, żeby pracować i napisał w asemblerze PDP-7 jądro systemu,
+interpreter poleceń, edytor tekstu i program asemblera. Zajęło mu to
+miesiąc.
+
+9. Programiści mogli korzystać z funkcji systemowych, obsługujących
+pliki i procesy. Po latach zapytano Kena, co by zrobił inaczej, gdyby
+na nowo opracowywał Unixa. Ken odpowiedział: "pisałbym creat z e". Ta
+nietypowa pisownia wzięła się stąd, że Ken używał kompilatora, który
+dodawał znak podkreślenia przed identyfikatorami globalnymi,
+i linkera, który ograniczał długość identyfikatorów do 6 znaków.
+Dlatego nazwy wszystkich tych funkcji systemowych mają najwyżej
+5 znaków.
+
+10. Na tym zdjęciu widać kolejnego brodatego pracownika Bell Labs,
+Briana Kernighana.
+
+11. To Brian w 1970 roku zaproponował dla nowego systemu operacyjnego
+nazwę Unix. Nazwa Unix to gra słów wobec nazwy Multics. Multics był
+systemem złożonym, czyli po angielsku multiplex, a Unix jest prosty,
+czyli uniplex.
+
+12. W 1969 roku Ken opracował język programowania B. Programiści mogli
+używać w języku B tylko jednego typu danych: słowa maszynowego. Na tym
+slajdzie widać program Hello World w języku B.
+
+13. Na komputerach, w których można adresować pojedyncze bajty
+wewnątrz słów maszynowych nie było wygodnie używać języka B. Od 1971
+roku Dennis zmieniał kompilator języka B tak, żeby dane mogły mieć
+różne typy. W ten sposób z języka B powstał najpierw język New B,
+a potem język C.
+
+14. W 1973 roku Ken i Dennis napisali jądro systemu na nowo, w języku
+C.
+
+15. Unix to nie tylko jądro systemu, ale też programy użytkowe:
+interpreter poleceń, edytory tekstu, kompilatory i inne programy. Doug
+McIllroy wspominał, że w 1973 roku, kiedy Ken i Dennis pracowali nad
+jądrem systemu i programami użytkowymi, napisali i uruchomili około
+100.000 wierszy kodu w języku C.
+
+16. W Bell Labs pracowali nie tylko trzej brodacze, ale też inni
+programiści. Na przykład Doug McIllroy stworzył takie narzędzia
+unixowe jak: spell, diff, sort, join, graph, speak, tr. Dick Haight
+stworzył narzędzia find, cpio i xargs. Marc Rochkind stworzył system
+zarządzania wersjami plików tekstowych Source Code Control System.
+
+17. Prawa autorskie do Unixa przysługiwały firmie American Telephone
+and Telegraph, czyli AT&T. W 1973 roku Dennis i Ken wygłosili referat
+o Unixie na Symposium on Operating Systems Principles. Po tym
+referacie uniwersytety, głównie z USA i Kanady, zaczęły prosić firmę
+AT&T o kopie Unixa. Ale z wyroku sądu firma AT&T mogła się komercyjnie
+zajmować tylko telekomunikacją, więc nie mogła sprzedawać Unixa. Ken
+wysyłał do uniwersytetów taśmy magnetyczne i dyski twarde z Unixem
+w zamian za zwrot kosztów nośnika danych i przesyłki. Do każdej
+przesyłki dołączał kartkę podpisaną "Love, Ken". Wtedy jeszcze nie
+było komputerów osobistych. Na zdjęciu widać Kena i Dennisa przy
+komputerze PDP-11, który wtedy nazywano minikomputerem. Pracownicy
+i studenci uniwersytetów stworzyli wiele programów użytkowych.
+Dzielili się nimi z pracownikami Bell Labs i innych uniwersytetów.
+Dopiero później firma AT&T zaczęła sprzedawać innym firmom licencje na
+używanie Unixa.
+
+18. Jeden z tych uniwersytetów znajduje się w Berkeley w Kalifornii,
+po przeciwnej stronie Zatoki San Francisco od San Francisco.
+
+19. Chodzi o Uniwersytet Kalifornijski w Berkeley.
+
+20. W 1978 roku Ken wziął roczny urlop z Bell Labs, tak zwany
+sabbatical, i przeniósł się na Uniwersytet Kalifornijski w Berkeley,
+żeby pracować na nim jako wykładowca. Tam pomógł zainstalować Unixa
+i zaczął pracować nad kompilatorem Pascala. Pomagali mu studenci Chuck
+Haley i Bill Joy. Bill Joy jest też znany z tego, że stworzył pierwszą
+wersję interpretera poleceń C shell i edytora tekstu vi. Nazwa vi to
+skrót wyrazu visual.
+
+21. Pracownicy innych uniwersytetów zainteresowali się programami
+stworzonymi w Berkeley. W 1978 roku Bill Joy zebrał te programy pod
+nazwą Berkeley Software Distribution, czyli w skrócie BSD. Potem
+pojawiały się kolejne wersje BSD. Różniły się od tych wersji Unixa,
+które wydawała firma AT&T, tym, że niektóre pliki systemowe znajdowały
+się w innych katalogach, tym, że dodawano do nich nowe funkcje
+systemowe, w szczególności funkcje systemowe do obsługi gniazd
+sieciowych, a przede wszystkim tym, że licencja na używanie Unixa BSD
+była tańsza od licencji na używanie Unixa firmy AT&T. Logo BSD na tym
+slajdzie powstało później. Nawiązuje do procesów-demonów, czyli
+procesów działających w tle. Postać na tym logo nazywa się Beastie,
+czyli bestyjka, a wymowa tego słowa przypomina wymowę skrótowca BSD.
+Bestyjka trzyma w rękach trójząb, co nawiązuje do funkcji systemowej
+fork.
+
+22. W 1982 roku powstała wersja 4.2BSD. Była to pierwsza wersja Unixa,
+w której programiści mogli korzystać z protokołów TCP, czyli
+Transmission Control Protocol, i IP, czyli Internet Protocol,
+i z gniazd sieciowych.
+
+23. W 1983 roku firma AT&T wydała komercyjną wersję Unixa, zwaną
+System Five. Dodano w niej między innymi funkcje systemowe do
+komunikacji między procesami za pomocą kolejek komunikatów, semaforów
+i pamięci współdzielonej.
+
+24. Różnice między funkcjami systemowymi Unixa Systemu Five i BSD
+utrudniały programistom pisanie przenośnych programów. W 1984 roku
+organizacja IEEE Computer Society, która działa wewnątrz organizacji
+IEEE, czyli Institute of Electrical and Electronics Engineers, zajęła
+się tworzeniem jednolitego standardu funkcji systemowych, a także
+poleceń systemowych Unixa.
+
+25. Ten jednolity standard funkcji systemowych i poleceń systemowych
+Unixa powstał w 1988 roku i jest rozwijany do dzisiaj. Nosi nazwę
+POSIX, czyli Portable Operating System Interface. W POSIXie
+wprowadzono nowe zestawy funkcji systemowych służących do komunikacji
+między procesami, czyli obsługujących kolejki komunikatów, semafory
+i pamięć współdzieloną, a także bibliotekę pthreads, czyli POSIX
+threads, dzięki której można korzystać z wątków.
+
+26. Oprócz Cambridge w Anglii jest jeszcze amerykańskie Cambridge pod
+Bostonem.
+
+27. W tym amerykańskim Cambridge znajduje się Uniwersytet Harvarda
+i Massachussets Institute of Technology, czyli MIT. Z jednego do
+drugiego można dojechać metrem albo w 20 minut dojść piechotą.
+
+28. W 1984 roku na MIT powstał system okien dla Unixa, zwany X Window
+System. W 1987 roku powstała wersja X11, która jest rozwijana do
+dzisiaj.
+
+29. A oto kolejny uniksowy brodacz, Richard Stallman. Warto wiedzieć,
+że Richard Stallman był kilka razy w Polsce, w tym 2 razy na AGH,
+ostatni raz w 2013 roku na Studenckim Festiwalu Informatycznym.
+Richard Stallman skończył studia z fizyki na Uniwersytecie Harvarda,
+a potem zaczął pracować w laboratorium sztucznej inteligencji na MIT.
+Tam stworzył edytor tekstu Emacs. Nazwa Emacs to skrót nazwy Editor
+Macros. Richarda Stallmana gniewało to, że twórcy oprogramowania
+przestali udostępniać kody źródłowe programów i stosowali takie
+licencje na oprogramowanie, które zabraniały kopiować i dalej
+udostępniać programy.
+
+30. Z powodu tego gniewu w 1983 roku Richard Stallman zaczął pracować
+nad przedsięwzięciem zwanym GNU Project, które miało na celu
+stworzenie darmowego i wolnego systemu operacyjnego, złożonego z jądra
+systemu i programów użytkowych. GNU to skrótowiec rekurencyjny, który
+oznacza Gnu's Not Unix. Logo GNU Project to głowa antylopy gnu.
+Richard Stallman zaczął od programów użytkowych. Stworzył debugger
+gdb, generator analizatorów składniowych bison, kompilator gcc i wiele
+programów użytkowych, takich jak ls, grep, make i tym podobne.
+
+31. W 1985 roku Richard Stallman założył Free Software Foundation.
+Free Software Foundation to fundacja, która tworzy, ochrania i promuje
+wolność użytkowników oprogramowania i broni ich praw, aby mogli używać
+programów, a także je kopiować, zmieniać i rozprowadzać.
+
+32. W 1989 roku Richard Stallman i Eben Mogler napisali GNU General
+Public License, czyli licencję wolnego i otwartego oprogramowania.
+Użytkownicy takiego oprogramowania, które ma licencję GPL, mogą
+uruchamiać programy w dowolnym celu, analizować, jak działają programy
+i dostosowywać je do swoich potrzeb, rozpowszechniać niezmienione
+kopie programu, a także udoskonalać programy i rozpowszechniać ich
+udoskonalone wersje. Licencja GPL tym się różni od innych licencji
+otwartego oprogramowania, że wymaga od programistów, by też
+rozpowszechniali wszystkie udoskonalone wersje programów na licencji
+GPL.
+
+33. W 1990 roku programiści GNU Project zaczęli pracować nad jądrem
+wolnego systemu operacyjnego, które nazwali GNU Hurd, ale do dziś nie
+powstała wersja, której można by używać w środowisku produkcyjnym.
+Przenieśmy się teraz do Helsinek.
+
+34. Ten slajd ma białe tło, bo tak wyglądają Helsinki zimą.
+
+35. W 1991 roku ten pan, Linus Torvalds, miał 21 lat, i studiował
+informatykę na Uniwersytecie Helsińskim. Wtedy postanowił stworzyć
+własną wersję jądra Unixa na komputery osobiste.
+
+36. W 1992 roku Linus stworzył pierwszą wersję jądra Linuxa.
+Rozprowadzał Linuxa na dwóch dyskietkach: na jednej było jądro Linuxa,
+a na drugiej różne programy użytkowe pochodzące z GNU Project. Nie
+było łatwo z niej korzystać, dlatego programiści zaczęli tworzyć tak
+zwane dystrybucje Linuxa, czyli systemy operacyjne złożone z jądra
+Linuxa i programów użytkowych pochodzących z GNU Project.
+
+37. Wróćmy do Kalifornii. Na południe od Zatoki San Francisco, 70 km
+od San Francisco, w Dolinie Krzemowej, znajduje się miasto Cupertino.
+
+38. Jedna z ulic w Cupertino nazywa się Infinite Loop.
+
+39. W Cupertino przy ulicy Infinite Loop pod numerem 1 znajduje się
+siedziba firmy Apple.
+
+40. Pan na tym zdjęciu to Steve Jobs, który razem ze Stevem Wozniakiem
+zakładał firmę Apple. W 1985 roku i Wozniak, i Jobs odeszli z firmy
+Apple. Jobs założył firmę NeXT, która wytwarzała stacje robocze, czyli
+bardzo wydajne komputery osobiste.
+
+41. Programiści firmy NeXT stworzyli system operacyjny NeXTStep na
+podstawie jądra Unixa BSD. Później firma Apple wykupiła firmę NeXT
+i Steve Jobs wrócił na stanowisko szefa firmy Apple. Programiści firmy
+Apple stworzyli na podstawie systemu NeXTStep system operacyjny Mac OS
+X dla komputerów Macintosh. Dzisiejsze wersje tego systemu nazywają
+się macOS.
+
+
+
+44. visual, American Telephone and Telegraph, Berkeley Software
+Distribution, Transmission Protocol, Internet Protocol, Institute of
+Electrical and Electronics Engineers, Portable Operating System
+Interface, Massachussets Institute of Technology, Editor Macros, GNU's
+Not Unix, General Public License.
